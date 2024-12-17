@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saas/src/views/dashboard/dashboard_view.dart';
+import 'package:saas/src/views/feed/feed_view.dart';
+import 'package:saas/src/views/sign-in/signin_view.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final router = GoRouter(routes: [
   GoRoute(
@@ -10,10 +13,18 @@ final router = GoRouter(routes: [
     ),
   ),
   GoRoute(
-    path: '/qualcosa',
-    builder: (context, state) => const Scaffold(
-      body: Text('Qualcosa'),
-    ),
+    path: '/sign-in',
+    builder: (context, state) => const SignInView(),
+    redirect: (context, state) {
+      if (Supabase.instance.client.auth.currentUser != null) {
+        return '/';
+      }
+      return null;
+    },
+  ),
+  GoRoute(
+    path: '/feed',
+    builder: (context, state) => const FeedView(),
   ),
   GoRoute(
     path: '/post/:id',
