@@ -6,7 +6,7 @@ class SignInView extends StatelessWidget {
 
   void signIn() {
     Supabase.instance.client.auth.signInWithOAuth(
-      OAuthProvider.github,
+      OAuthProvider.google,
       redirectTo: 'http://localhost:3000',
     );
   }
